@@ -1,0 +1,46 @@
+<% if @wing_order.errors %>
+<ul class="errors">
+  <% @wing_order.errors.full_messages.each do |error| %>
+  <li><%= error %></li>
+  <% end  %>
+</ul>
+
+<% end  %>
+
+<%= form_for @wing_order, html: {id: 'new_wing_order'} do |f| %>
+  <div class="row">
+   <%= f.label :customer_name, "Full Name" %>
+   <%= f.text_field :customer_name %>
+  </div>
+
+  <div class="row">
+    <%= f.label :city %>
+    <%= f.text_area :city %>
+  </div>
+
+  <div class="row">
+    <%= f.label :state %>
+     <%= f.collection_select(:state, @state_collection, :last, :first)%>
+
+  </div>
+  <div class="row">
+    <%= f.label :quantity %>
+    <%= f.collection_radio_buttons(:quantity, @quantity_collection, :first, :last)%>
+  </div>
+
+  <div class="row">
+    <%= f.label :add_ranch_dressing, "Add Ranch Dressing"%>
+    <%= f.check_box(:ranch_dressing) %>
+  </div>
+
+  <div class="row">
+    <%= f.label :flavors %>
+    <%= f.collection_check_boxes(:flavor_ids, @flavor_collection, :id, :name) %>
+  </div>
+
+  <div class="row">
+    <%= f.submit "Place order" %>
+
+  </div>
+
+<% end %>
